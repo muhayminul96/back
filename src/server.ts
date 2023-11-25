@@ -1,14 +1,21 @@
 import app from './app'
+import config from './app/config';
 const mongoose = require('mongoose');
-const PORT : number =  3000;
 
+
+const PORT = config.port
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/test');
-
+  try{
+    await mongoose.connect(config.database_url);
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+  }
+  catch(err){
+    console.error(err)
+  }
 }
 
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-  });
+main()
