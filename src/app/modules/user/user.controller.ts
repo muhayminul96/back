@@ -8,11 +8,13 @@ const createUser =async (req:Request,res:Response) => {
         const user = req.body;
         const result = await userService.createUserIntoDb(user);
 
+        const{password , ...resultWithoutPassword} = result;
+        
         res.status(200).json(
         {
             "success": true,
             "message": "User created successfully!",
-            "data":result
+            "data":resultWithoutPassword
         }
 
         )
