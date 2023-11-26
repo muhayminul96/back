@@ -41,10 +41,7 @@ const userSchema = new Schema<User>({
     
   })
 
-  userSchema.post('save',function(){
-    
-    this.password = ''
-    
+  userSchema.post('save',function(){    
     console.log("done");
     
   })
