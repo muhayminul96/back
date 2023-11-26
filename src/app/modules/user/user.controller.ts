@@ -118,7 +118,7 @@ const updateUser =async (req:Request,res:Response) => {
         res.status(200).json(
         {
             "success": true,
-            "message": "User created successfully!",
+            "message": "User updated successfully!",
             "data":result
         }
 
