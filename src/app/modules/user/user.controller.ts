@@ -49,7 +49,7 @@ const getOneUser =async (req:Request,res:Response) => {
 
     try{
         const {userId} = req.params;
-        const result = await userService.getUserFromDb(userId);
+        const result = await userService.getUserFromDb(Number(userId));
 
         res.status(200).json(
         {
@@ -80,7 +80,7 @@ const deleteUser =async (req:Request,res:Response) => {
 
     try{
         const {userId} = req.params;
-        const result = await userService.deleteUserFromDb(userId);
+        const result = await userService.deleteUserFromDb(Number(userId));
 
         res.status(200).json(
             {
@@ -113,7 +113,7 @@ const updateUser =async (req:Request,res:Response) => {
         const user = req.body;
         const {userId} = req.params;
 
-        const result = await userService.updateUserIntoDb(user,userId);
+        const result = await userService.updateUserIntoDb(user,Number(userId));
 
         res.status(200).json(
         {
@@ -130,4 +130,28 @@ const updateUser =async (req:Request,res:Response) => {
 
 }
 
-export const UserController = {createUser,getUser,getOneUser,deleteUser,updateUser};
+
+const addOrder =async (req:Request,res:Response) => {
+
+    try{
+        const user = req.body;
+        const {userId} = req.params;
+
+        const result = await userService.addOrderIntoDb(user,Number(userId));
+
+        res.status(200).json(
+            {
+                "success": true,
+                "message": "Order created successfully!",
+                "data": null
+            }
+
+        )
+    }
+    catch(err){
+        console.log(err)
+     }
+
+}
+
+export const UserController = {createUser,getUser,getOneUser,deleteUser,updateUser,addOrder};
