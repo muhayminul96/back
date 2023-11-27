@@ -17,13 +17,13 @@ const createUserIntoDb = async (user: User) => {
 };
 
 const getUsersFromDb = async () => {
-  const result = await UserModel.find().select("-password");
+  const result = await UserModel.find().select("-_id username fullName age email address");
 
   return result;
 };
 
 const getUserFromDb = async (userId: number) => {
-  const result = await UserModel.findOne({ userId }).select("-password");
+  const result = await UserModel.findOne({ userId }).select("-_id username fullName age email address");
 
   return result;
 };
