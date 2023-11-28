@@ -8,13 +8,13 @@ const createUser =async (req:Request,res:Response) => {
         const user = req.body;
         const result = await userService.createUserIntoDb(user);
 
-        const{password , ...resultWithoutPassword} = result;
+        // const { password , ...resultWithoutPassword} = result;
         
         res.status(200).json(
         {
             "success": true,
             "message": "User created successfully!",
-            "data":resultWithoutPassword
+            "data":result
         }
 
         )
@@ -187,4 +187,43 @@ const getOrder =async (req:Request,res:Response) => {
 
 }
 
-export const UserController = {createUser,getUser,getOneUser,deleteUser,updateUser,addOrder,getOrder};
+
+const getOrderPrice =async (req:Request,res:Response) => {
+
+    try{
+        const {userId} = req.params;
+        const result = await userService.getOrderTotalFromDb(Number(userId));
+
+        res.status(200).json(
+        {
+            "success": true,
+            "message": "Users fetched successfully!",
+            "data":{
+                "success": false,
+                "message": "User not found",
+                "error": {
+                    "code": 404,
+                    "description": "User not found!"
+                }
+            }
+        }
+
+        )
+    }
+    catch(err){
+        console.log(err);
+        res.status(404).json(
+            {
+                "success": false,
+                "message": "User not found",
+                "error": {
+                    "code": 404,
+                    "description": "User not found!"
+                }
+            }
+        )
+     }
+
+}
+
+export const UserController = {createUser,getUser,getOneUser,deleteUser,updateUser,addOrder,getOrder,getOrderPrice};
