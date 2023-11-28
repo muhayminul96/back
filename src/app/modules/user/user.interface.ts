@@ -1,5 +1,5 @@
-
-// 1. Create an interface representing a document in MongoDB.
+import { Model } from 'mongoose';
+// Create an interface representing a document in MongoDB.
 
 type Address = {
     street: string;
@@ -13,7 +13,7 @@ type Address = {
     quantity: number;
   };
 
-type User = {
+export type User = {
     userId: number;
     username: string;
     password: string;
@@ -29,5 +29,9 @@ type User = {
     orders: Order[];
   };
 
+ export interface UserModel extends Model<User> {
+    isUserExist(id:string): Promise < User | null> ;
+  }
 
-  export default User
+
+  // export default User
